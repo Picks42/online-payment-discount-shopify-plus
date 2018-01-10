@@ -1,0 +1,33 @@
+
+{{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js' | script_tag }}
+<script type="text/javascript">
+  window.cart_data = [];
+  window.codAppied = false;
+  window.checkoutLineItem = [];
+  $(".facny_loading").appendTo('body');
+  {%- for item in checkout.line_items -%}  
+  var item  = {};
+  item.id = '{{item.variant_id}}';
+  item.quantity = '{{item.quantity}}';
+  properties = {};
+  {%- for pro in item.properties -%}
+  {% if pro.last == 'cod' %}
+  {%- assign cod = true -%}
+  {% endif %}
+  properties['{{pro.first}}'] = '{{pro.last}}';
+  {%- endfor -%}
+  item.properties = properties;
+  window.cart_data.push(item);
+  {%- endfor -%}
+  var not_cod_input = $(".content-box__row:first input");
+  var cod_input = $(".content-box__row[data-gateway-group='manual'] input");
+  var disccount_banner = $(".section--payment-method .section__content");
+  {%- if cod -%}
+  cod_input.click();
+  codAppied = true;
+  disccount_banner.prepend("<p class='cod_banner'>{{settings.checkout_discount_before}}</p>");
+  {%- else -%}
+  disccount_banner.prepend("<p class='cod_banner'>{{settings.checkout_discount_after}}</p>");
+  {%- endif -%}
+</script>
+{{ 'simply.checkout-script.js' | asset_url | script_tag }} 
