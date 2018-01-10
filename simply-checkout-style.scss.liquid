@@ -1,0 +1,45 @@
+  @mixin transform($transforms) {
+    -moz-transform: $transforms;
+    -o-transform: $transforms;
+    -ms-transform: $transforms;
+    -webkit-transform: $transforms;
+    transform: $transforms;
+  }
+  .cod_banner{
+   margin: 0;
+   text-align: left;
+   line-height: 1;
+   font-size: 14px;
+   color: #d0223a;
+   margin-bottom: 10px;
+   padding: 10px;
+   background: #fff5d2;
+   border-radius: 5px;
+   @media(min-width: 768px){
+    margin-top: -15px;  
+  }
+}
+.loading_me{
+  position: fixed;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.54);
+  display: none;
+  z-index: 1000;
+  .img{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%,-50%));  
+    background: #000;
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 1; 
+    color: #fff;
+  }
+}
+.overflow_hidden{
+  overflow: hidden;
+}
