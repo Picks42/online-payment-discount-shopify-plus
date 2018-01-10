@@ -1,0 +1,22 @@
+customer = Input.cart.customer
+productIdArray = Array.new
+qty = 0
+Input.cart.line_items.each do |line_item|
+   
+     productIdArray.push(line_item)
+   
+ end
+
+ 
+ productIdArray.each do |line_item|
+    unless  line_item.properties['cod'] == 'cod'
+         
+   product = line_item.variant.product
+    percent = Decimal.new(90) / 100.0;
+    remaing_amount  = line_item.line_price * percent 
+    line_item.change_line_price(remaing_amount , message: "10% discount if paid online")
+  end
+end
+
+
+Output.cart = Input.cart
