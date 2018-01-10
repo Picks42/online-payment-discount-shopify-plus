@@ -4,7 +4,7 @@
   window.cart_data = [];
   window.codAppied = false;
   window.checkoutLineItem = [];
-  $(".facny_loading").appendTo('body');
+  $(".loading_me").appendTo('body');
   {%- for item in checkout.line_items -%}  
   var item  = {};
   item.id = '{{item.variant_id}}';

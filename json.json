@@ -1,0 +1,18 @@
+,
+{
+  "name":"Checkout discount",
+  "settings":[
+    {
+      "id":"checkout_discount_before",
+      "label":"Before discount text",
+      "type":"text",
+      "default":"Pay online and get 10% off."
+    },
+    {
+      "id":"checkout_discount_after",
+      "label":"After discount text",
+      "type":"text",
+      "default":"Online payment 10% discount applied."
+    }
+  ]
+}
