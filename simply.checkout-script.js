@@ -20,14 +20,14 @@ simply.ajaxCart =  function(form,callback){
   jQuery.ajax(params);
 };
 simply.showLoading = function(){
-$("body").addClass('overflow_hidden');
-$("html").addClass('overflow_hidden');
-$(".loading_me").fadeIn();
+  $("body").addClass('overflow_hidden');
+  $("html").addClass('overflow_hidden');
+  $(".loading_me").fadeIn();
 };
 simply.hideLoading = function(){
-$("body").removeClass('overflow_hidden');
-$("html").removeClass('overflow_hidden');
-$(".loading_me").hide();
+  $("body").removeClass('overflow_hidden');
+  $("html").removeClass('overflow_hidden');
+  $(".loading_me").hide();
 };
 simply.cartProcess = function(add){
   if(cart_data.length > 0){
@@ -68,23 +68,29 @@ simply.removeCod = function(){
   simply.cartProcess();
 };
 simply.clickEvent = function(){
-  $(".content-box__row[data-gateway-group != 'manual'] input").click(function(){
+  $(document).on("click",".content-box__row[data-gateway-group != 'manual'] input",function(){
     if(codAppied){
       simply.showLoading();
       $.get('/cart/clear',function(){
         simply.removeCod();
+      }).fail(function(){ 
+        simply.hideLoading();
+      });
+
+    }
+  });
+  $(".content-box__row[data-gateway-group='manual'] input")
+  $(document).on("click",".content-box__row[data-gateway-group = 'manual'] input",function(){
+    if(codAppied){}
+    else{
+      simply.showLoading();
+        $.get('/cart/clear',function(){
+        simply.addCod();
+      }).fail(function(){ 
+        simply.hideLoading();
       });
     }
   });
-  cod_input.click(function(){
-    if(codAppied){}
-      else{
-        simply.showLoading();
-        $.get('/cart/clear',function(){
-          simply.addCod();
-        });
-      }
-    });
 };
 simply.hoverEvent = function(){};
 simply.changeEvent = function(){};
@@ -97,5 +103,7 @@ simply.init = function(){
   simply.submitEvent();
 };
 $(document).ready(function(){
+  if(simply.shopDomain == 'Domain Name'){
   simply.init();
+  }
 });
